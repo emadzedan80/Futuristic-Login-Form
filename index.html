@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Custom Text Field</title>
+        <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+			body{
+				font-family: 'Oswald', sans-serif;	
+				background-color:#343434;
+				font-size:14px;
+			}
+			.content{
+				width:330px;
+				height:100px;
+				margin:100px auto 0px auto;
+				border:1px solid #262626;
+				padding:10px;
+				background-color:#343434;
+			}
+			.formContainer{
+				position:relative;	
+			}
+			#userNamrInput{
+				width:260px;
+				height:50px;
+				background:transparent;
+				border:none;
+				background-image:url(img/UserNameTextFields.png);
+				background-repeat:no-repeat;
+				padding-left:50px;
+				outline:none;
+				color:#FFFFFF;
+				font-family: 'Oswald', sans-serif;
+			}
+			#passwordInput{
+				width:260px;
+				height:50px;
+				background:transparent;
+				border:none;
+				background-image:url(img/PasswordTextFields.png);
+				background-repeat:no-repeat;
+				padding-left:50px;
+				outline:none;
+				color:#FFFFFF;
+				font-family: 'Oswald', sans-serif;
+			}
+			.textFieldAnimation{
+				cursor:text;	
+				width:215px;
+				height:30px;
+				position:absolute;
+				top:10px;
+				left:40px;
+			}
+			.imageContainer{
+				cursor:text;	
+				width:254px;
+				height:36px;
+				position:absolute;
+				top:0px;	
+			}
+			#img2{
+				margin-top:52px;
+			}
+			.button{
+				width:50px;
+				height:50px;
+				cursor:pointer;
+				background-image:url(img/ArrowButton.png);
+				background-repeat:no-repeat;
+				position:absolute;
+				top:26px;
+				right:0px;
+			}
+			.xButton{
+				width:50px;
+				height:50px;
+				cursor:pointer;
+				background-image:url(img/XButton.png);
+				background-repeat:no-repeat;
+				position:absolute;
+				top:26px;
+				right:0px;
+			}
+			.readyButton{
+				width:50px;
+				height:50px;
+				cursor:pointer;
+				background-image:url(img/ShieldButton.png);
+				background-repeat:no-repeat;
+				position:absolute;
+				top:26px;
+				right:0px;
+			}
+			#result{
+				color:#FFFFFF;
+				position:absolute;
+				top:42px;
+    			right:55px;	
+			}
+        </style>
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script>
+            $(document).ready(function(){	  
+                $("#img1").click(function(){
+                    $("#userNamrInput").focus();
+                });
+                $("#userNamrInput").focusout(function() {
+                    if($("#userNamrInput").val() == ""){
+                        $("#img1").css("z-index","1");
+                    }
+                });
+				$("#userNamrInput").focus(function() {
+                    $("#img1").css("z-index","-5");
+                });
+                //================================================================
+                $("#img2").click(function(){
+                    $("#passwordInput").focus();
+                });
+                $("#passwordInput").focusout(function() {
+                    if($("#passwordInput").val() == ""){
+                        $("#img2").css("z-index","1");
+                    }
+                });
+				$("#passwordInput").focus(function() {
+                    $("#img2").css("z-index","-5");
+                });
+				var loginLoop = setInterval(function(){
+					
+					$("#submitButton").removeClass("readyButton");
+					$("#submitButton").removeClass("xButton");
+					$("#submitButton").addClass("button");
+					
+					if((($("#userNamrInput").val() != "") && ($("#passwordInput").val() != ""))){
+						$("#submitButton").removeClass("readyButton");
+						$("#submitButton").removeClass("button");
+						$("#submitButton").addClass("xButton");
+					}	
+					
+					if(($("#userNamrInput").val() == "admin") && ($("#passwordInput").val() == "123")){
+						$("#txt1").css({"display":"none"});
+						$("#txt2").css({"display":"none"});
+						$("#result").html("You Are logged In! Click To Continue.");
+						$(".imageContainer").html("");
+						$("#submitButton").removeClass("button");
+						$("#submitButton").removeClass("xButton");
+						$("#submitButton").addClass("readyButton");
+						clearInterval(loginLoop);
+					}	
+					
+				}, 1);
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <div class="formContainer">
+                <div class="imageContainer" id="img1"><img src="img/Sequence.gif" class="textFieldAnimation"/></div>
+                <div id="txt1"><input type="text" id="userNamrInput"></div>
+                <div class="imageContainer" id="img2"><img src="img/Sequence.gif" class="textFieldAnimation"/></div>
+                <div id="txt2"><input type="password" id="passwordInput"></div>
+                <div id="result"></div>
+                <div class="button" id="submitButton"></div>
+            </div>
+        </div>
+    </body>
+</html>
